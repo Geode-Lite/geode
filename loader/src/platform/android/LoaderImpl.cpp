@@ -6,7 +6,7 @@ using namespace geode::prelude;
 
 std::string Loader::Impl::getGameVersion() {
     if (m_gdVersion.empty()) {
-        std::ifstream version_file("/data/data/com.geode.launcher/files/game_version.txt");
+        std::ifstream version_file("/data/data/com.geodelite.launcher/files/game_version.txt");
         if (!version_file) {
             // probably on an older launcher
             return m_gdVersion;
