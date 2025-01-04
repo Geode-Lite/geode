@@ -84,7 +84,7 @@ bool WarningPopup::init() {
 }
 
 void WarningPopup::onClose(CCObject*) {
-    GameManager::get()->setUGV("50", true);
+    Mod::get()->setSavedValue<bool>("viewedPopup", true);
     setKeypadEnabled(false);
     setTouchEnabled(false);
     removeFromParentAndCleanup(true);
