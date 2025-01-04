@@ -129,6 +129,7 @@ elseif(ANDROID)
 
 	file(GLOB ANDROID_SOURCES CONFIGURE_DEPENDS
 		src/platform/android/*.cpp
+		src/platform/lite/*.cpp
 	)
 	list(APPEND SOURCES ${ANDROID_SOURCES})
 
