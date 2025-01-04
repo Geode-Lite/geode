@@ -1,5 +1,6 @@
 #include <Geode/Geode.hpp>
 using namespace geode::prelude;
+
 class WarningPopup : public FLAlertLayer {
 protected:
     $override
@@ -15,7 +16,7 @@ protected:
     CCMenuItemSpriteExtra* m_okBtn = nullptr;
 
 public:
-    static SavePopup* create();
+    static WarningPopup* create();
     
     void onClose(CCObject*);
 };
