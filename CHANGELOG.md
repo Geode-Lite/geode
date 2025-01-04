@@ -1,9 +1,16 @@
 # Geode Changelog
 
+## v4.1.22
+ * Add Geode Lite warning
+ * Remove Modtober animation
+ * Change many URLs and strings to Geode Lite
+ * Add LiteUtils (primarly `bool LiteUtils::isLite()`)
+ * Begin custom tab
+
 ## v4.1.21
-* geode lite bug fixes
-* add a define for geode lite
-* fix version check
+ * geode lite bug fixes
+ * add a define for geode lite
+ * fix version check
 
 ## v4.1.2
  * Prevent crashlog recursion on MacOS (a69c4c2)
