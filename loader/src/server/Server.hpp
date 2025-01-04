@@ -115,6 +115,7 @@ namespace server {
         std::optional<std::string> query;
         std::unordered_set<PlatformID> platforms = { GEODE_PLATFORM_TARGET };
         std::unordered_set<std::string> tags;
+        std::string customurl;
         std::optional<bool> featured;
         ModsSort sorting = ModsSort::Downloads;
         std::optional<std::string> developer;

@@ -101,6 +101,7 @@ public:
 
 struct LocalModsQueryBase {
     std::optional<std::string> query;
+    std::string customurl;
     std::unordered_set<std::string> tags = {};
     size_t page = 0;
     size_t pageSize = 10;

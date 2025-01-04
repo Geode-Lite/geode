@@ -113,7 +113,7 @@ server::ModsQuery ServerModListSource::createDefaultQuery() const {
         };
 
         case ServerModListType::Lite: return server::ModsQuery {
-            .tags = { "joke" },
+            .customurl = "https://api.geode-sdk.org/v1",
         };
 
         case ServerModListType::Modtober24: return server::ModsQuery {

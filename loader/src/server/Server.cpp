@@ -386,6 +386,11 @@ Result<ServerModUpdate> ServerModUpdate::parse(matjson::Value const& raw) {
     auto res = ServerModUpdate();
 
     root.needs("id").into(res.id);
+    if (!baseServerUrl.compare("https://api.geode-sdk.org/v1")) {
+        if (!res.id.empty()) {
+            res.id += baseServerUrl 
+        }
+    }
     root.needs("version").into(res.version);
     if (root.hasNullable("replacement")) {
         GEODE_UNWRAP_INTO(res.replacement, ServerModReplacement::parse(root.hasNullable("replacement").json()));
@@ -539,9 +544,10 @@ bool ServerModMetadata::hasUpdateForInstalledMod() const {
     }
     return false;
 }
+std::string baseServerUrl = "https://api.geode-sdk.org/v1";
 
 std::string server::getServerAPIBaseURL() {
-    return "https://api.geode-sdk.org/v1";
+    return baseServerUrl;
 }
 
 template <class... Args>
@@ -589,6 +595,12 @@ ServerRequest<ServerModsList> server::getMods(ModsQuery const& query, bool useCa
         }
         req.param("platforms", plats);
     }
+    if (query.customurl != "") {
+        baseServerUrl = query.customurl;
+    } else {
+        baseServerUrl = "https://api.geode-sdk.org/v1";
+    };
+
     if (query.tags.size()) {
         req.param("tags", ranges::join(query.tags, ","));
     }
@@ -603,7 +615,7 @@ ServerRequest<ServerModsList> server::getMods(ModsQuery const& query, bool useCa
     // Paging (1-based on server, 0-based locally)
     req.param("page", std::to_string(query.page + 1));
     req.param("per_page", std::to_string(query.pageSize));
-
+    
     return req.get(formatServerURL("/mods")).map(
         [](web::WebResponse* response) -> Result<ServerModsList, ServerError> {
             if (response->ok()) {
@@ -632,6 +644,7 @@ ServerRequest<ServerModsList> server::getMods(ModsQuery const& query, bool useCa
 }
 
 ServerRequest<ServerModMetadata> server::getMod(std::string const& id, bool useCache) {
+    log::debug("the id loading up is {}",id);
     if (useCache) {
         return getCache<getMod>().get(id);
     }
