@@ -1,5 +1,5 @@
 #include "../ui/mods/ModsLayer.hpp"
-#include "lite/warning.hpp"
+#include "lite/WarningPopup.hpp"
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/Modify.hpp>
 #include <Geode/modify/IDManager.hpp>
@@ -75,7 +75,7 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
 
             bottomMenu->updateLayout();
             
-            if (!Mod::get()->getSavedValue<bool>("viewedPopup")){
+            if (!Mod::get()->getSavedValue<bool>("viewedLiteWarning")){
                 auto popup = WarningPopup::create();
                 popup->m_scene = this;
                 popup->show();
