@@ -59,6 +59,12 @@ ServerModListSource* ServerModListSource::get(ServerModListType type) {
             static auto inst = new ServerModListSource(ServerModListType::Modtober24);
             return inst;
         } break;
+
+        case ServerModListType::Lite: {
+            static auto inst = new ServerModListSource(ServerModListType::Lite);
+            return inst;
+        } break;
+
     }
 }
 

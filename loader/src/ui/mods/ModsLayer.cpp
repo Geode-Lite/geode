@@ -484,6 +484,7 @@ bool ModsLayer::init() {
         { "download.png"_spr, "Installed", InstalledModListSource::get(InstalledModListType::All), "installed-button", false },
         { "GJ_starsIcon_001.png", "Featured", ServerModListSource::get(ServerModListType::Featured), "featured-button", false },
         { "globe.png"_spr, "Download", ServerModListSource::get(ServerModListType::Download), "download-button", false },
+         { "globe.png"_spr, "Download", ServerModListSource::get(ServerModListType::Lite), "download-button", false },
         { "GJ_timeIcon_001.png", "Recent", ServerModListSource::get(ServerModListType::Recent), "recent-button", false },
         { "d_artCloud_03_001.png", "Modtober", ServerModListSource::get(ServerModListType::Modtober24), "modtober-button", true },
     }) {
@@ -626,9 +627,9 @@ bool ModsLayer::init() {
 void ModsLayer::onEnterTransitionDidFinish() {
     CCLayer::onEnterTransitionDidFinish();
     // todo: generic system for this for any contest event
-    if (!Mod::get()->setSavedValue("shown-modtober-winner", true)) {
-        this->addChild(EventWinnerAnimation::create());
-    }
+    //if (!Mod::get()->setSavedValue("shown-modtober-winner", true)) {
+     //   this->addChild(EventWinnerAnimation::create());
+    //}
 }
 
 void ModsLayer::gotoTab(ModListSource* src) {

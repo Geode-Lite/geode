@@ -210,6 +210,9 @@ std::pair<ccColor3B, ccColor3B> geodeTagColors(server::ServerTag const& tag) {
     if (tag.name == "modtober24") {
         return std::make_pair(ccc3(225, 236, 245), ccc3(82, 139, 201));
     }
+    if (tag.name == "lite") {
+        return std::make_pair(ccc3(238, 255, 0), ccc3(183, 201, 82));
+    }
     return TAG_COLORS[hash(tag.name) % 5932 % TAG_COLORS.size()];
 }
 
