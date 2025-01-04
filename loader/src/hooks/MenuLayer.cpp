@@ -96,7 +96,7 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
             static bool shownProblemPopup = false;
             if (!shownProblemPopup) {
                 shownProblemPopup = true;
-                Notification::create("There were errors - see Geode page!", NotificationIcon::Error)->show();
+                Notification::create("There were errors - see Geode Lite page!", NotificationIcon::Error)->show();
             }
             if (m_fields->m_geodeButton) {
                 m_fields->m_exclamation = CCSprite::createWithSpriteFrameName("exMark_001.png");
@@ -117,7 +117,7 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
                     auto popup = FLAlertLayer::create(
                         "Hold up!",
                         "It appears that you have tried to <cr>load DLLs</c> with Geode. "
-                        "Please note that <cy>Geode is incompatible with ALL DLLs</c>, "
+                        "Please note that <cy>Geode Lite is incompatible with ALL DLLs</c>, "
                         "as they can cause Geode mods to <cr>error</c>, or even "
                         "<cr>crash</c>.\n\n"
                         "Remove the DLLs / other mod loaders you have, or <cr>proceed at "
@@ -139,7 +139,7 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
             Loader::get()->queueInMainThread([] {
                 auto popup = FLAlertLayer::create(
                     "Update downloaded",
-                    "A new <cy>update</c> for Geode has been installed! "
+                    "A new <cy>update</c> for Geode Lite has been installed! "
                     "Please <cy>restart the game</c> to apply.",
                     "OK"
                 );
@@ -310,7 +310,7 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
             "Dismiss", "Open Github",
             [](auto, bool btn2) {
                 if (btn2) {
-                    web::openLinkInBrowser("https://github.com/geode-sdk/geode/releases/latest");
+                    web::openLinkInBrowser("https://github.com/MuhXd/geode-lite-repo/releases/latest");
                     file::openFolder(dirs::getGeodeDir() / "update" / "resources");
                     FLAlertLayer::create(
                         "Info",
@@ -335,7 +335,7 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
             "Missing Textures",
             "You appear to be missing textures, and the automatic texture fixer "
             "hasn't fixed the issue.\n"
-            "**<cy>Report this bug to the Geode developers</c>**. It is very likely "
+            "**<cy>Report this bug to the Geode Lite developers</c>**. It is very likely "
             "that your game <cr>will crash</c> until the issue is resolved.",
             "OK"
         )->show();
