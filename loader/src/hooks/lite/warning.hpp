@@ -62,7 +62,7 @@ bool WarningPopup::init() {
 
     m_mainLayer->addChild(m_title);
 
-    m_textArea = TextArea::create("<cs>Geode Lite</c> is a fan port of <cp>Geode</c> to <cg>Geometry Dash Lite</c>.\nAs a result, some mods may have <cr>issues</c> or <cr>crashes</c>. Geode <cr>will not help</c> with issues caused by Lite.", "bigFont.fnt", 1.f, 630.f, {0.5, 1.F}, 42.f, false);
+    m_textArea = TextArea::create("<cs>Geode Lite</c> is a fan port of <cd>Geode</c> to <cg>Geometry Dash Lite</c>.\nAs a result, some mods may have <cr>issues</c> or <cr>crashes</c>.\nGeode lead developers <cr>will not help</c> with issues caused by Lite.", "bigFont.fnt", 1.f, 630.f, {0.5, 1.F}, 30.f, false);
     m_textArea->setPosition({winSize.width / 2, winSize.height / 2 + 15.f});
     m_textArea->setScale(0.5f);
 
