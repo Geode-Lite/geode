@@ -44,7 +44,7 @@ bool WarningPopup::setup() {
 
 void WarningPopup::onClose(CCObject* obj) {
     Popup::onClose(obj);
-    Mod::get()->setSavedValue<bool>("viewedPopup", true);
+    Mod::get()->setSavedValue<bool>("viewedLiteWarning", true);
 }
 
 void WarningPopup::keyBackClicked() {
