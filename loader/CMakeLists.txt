@@ -66,6 +66,7 @@ file(GLOB SOURCES CONFIGURE_DEPENDS
 	src/cocos2d-ext/zip/*.cpp
 	src/core/*.cpp
 	src/hooks/*.cpp
+	src/hooks/lite/*.cpp
 	src/ids/*.cpp
 	src/internal/*.cpp
 	src/server/*.cpp
