@@ -62,7 +62,7 @@ bool WarningPopup::init() {
 
     m_mainLayer->addChild(m_title);
 
-    m_textArea = TextArea::create("<cy>Geode lite</c> is a fan port of <cp>Geode</c> to Geometry Dash <cy>Lite</c>.\nas a result some mods may be <cr>incompatible</c> and <cr>crash</c>", "bigFont.fnt", 1.f, 630.f, {0.5, 1.F}, 42.f, false);
+    m_textArea = TextArea::create("<cs>Geode Lite</c> is a fan port of <cp>Geode</c> to <cg>Geometry Dash Lite</c>.\nAs a result, some mods may have <cr>issues</c> or <cr>crashes</c>. Geode <cr>will not help</c> with issues caused by Lite.", "bigFont.fnt", 1.f, 630.f, {0.5, 1.F}, 42.f, false);
     m_textArea->setPosition({winSize.width / 2, winSize.height / 2 + 15.f});
     m_textArea->setScale(0.5f);
 
@@ -71,7 +71,7 @@ bool WarningPopup::init() {
     m_mainLayer->addChild(m_buttonMenu);
 
 
-    m_button1 = ButtonSprite::create("I UNDERSTAND",0,0,1.0,false,"goldFont.fnt","GJ_button_01.png",0.0);
+    m_button1 = ButtonSprite::create("I Understand",0,0,1.0,false,"goldFont.fnt","GJ_button_01.png",0.0);
     m_okBtn = CCMenuItemSpriteExtra::create(m_button1, this, menu_selector(WarningPopup::onClose));
     m_okBtn->setPosition(m_buttonMenu->convertToNodeSpace({winSize.width / 2, m_background->getPositionY() - 100.f + 25.f}));
 
