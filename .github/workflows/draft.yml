@@ -3,6 +3,9 @@ name: Draft Release
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   draft:
     name: Draft Release
@@ -17,29 +20,42 @@ jobs:
           zipBall: true
           out-file-path: 'dev'
 
+      - name: Debug ZIP Contents
+        run: unzip -l ${{ github.workspace }}/dev/geode-nightly.zip
+
       - name: Declare Version Variable
         id: ref
         shell: bash
         run: |
           VERSION=$(unzip -p ${{ github.workspace }}/dev/geode-nightly.zip geode-sdk-geode-*/VERSION | xargs)
+          if [ -z "$VERSION" ]; then
+            echo "VERSION is empty. Ensure the VERSION file exists in the ZIP."
+            exit 1
+          fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-          # test if release already exists
+          # Test if release already exists
           set +e
           curl --fail "https://api.github.com/repos/MuhXd/geode-lite-repo/releases/tags/v$VERSION" --silent --output /dev/null
           RESULT=$?
           set -e
-          
+
           if [ $RESULT -eq 0 ]; then
-            echo "Release $VERSION already exists! Not replacing it.."
+            echo "Release $VERSION already exists! Not replacing it."
             exit 1
           fi
+
+      - name: Debug Files Before Move
+        run: ls -la dev/
 
       - name: Move Files
         run: |
           mv dev/geode-*-android32.zip geode-v${{ steps.ref.outputs.version }}-android32.zip
           mv dev/geode-*-android64.zip geode-v${{ steps.ref.outputs.version }}-android64.zip
           mv dev/resources.zip resources.zip
+
+      - name: Debug Files After Move
+        run: ls -la .
 
       - name: Create Draft Release
         uses: softprops/action-gh-release@v1
@@ -50,11 +66,4 @@ jobs:
           name: Geode v${{ steps.ref.outputs.version }}
           body: |
             TODO before publishing:
-             - mark if pre-release
-             - add changelog
-             - remove this
-          draft: true
-          files: |
-            ./geode-v${{ steps.ref.outputs.version }}-android32.zip
-            ./geode-v${{ steps.ref.outputs.version }}-android64.zip
-            ./resources.zip
+             - mark if
