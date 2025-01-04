@@ -41,14 +41,13 @@ jobs:
             exit 1
           fi
 
-      # Extract VERSION from the Android 32-bit ZIP
-      - name: Declare Version Variable
+      # Fetch the VERSION file from the main branch
+      - name: Fetch VERSION from Main Branch
         id: ref
-        shell: bash
         run: |
-          VERSION=$(unzip -p ${{ github.workspace }}/dev/geode-*-android32.zip geode-lite-repo-*/VERSION | xargs)
+          VERSION=$(curl -s https://raw.githubusercontent.com/MuhXd/geode-lite-repo/main/VERSION | xargs)
           if [ -z "$VERSION" ]; then
-            echo "Error: VERSION file not found in the ZIP."
+            echo "Error: Failed to fetch VERSION from the repository."
             exit 1
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
@@ -84,7 +83,7 @@ jobs:
           tag_name: v${{ steps.ref.outputs.version }}
           name: Geode v${{ steps.ref.outputs.version }}
           body: |
-            Geode development release for commit ${{ steps.ref.outputs.version }}.
+            Geode development release for version ${{ steps.ref.outputs.version }}.
 
             TODO:
             - Mark if pre-release
