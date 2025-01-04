@@ -46,7 +46,7 @@ jobs:
         id: ref
         shell: bash
         run: |
-          VERSION=$(unzip -p ${{ github.workspace }}/dev/geode-*-android32.zip geode-sdk-geode-*/VERSION | xargs)
+          VERSION=$(unzip -p ${{ github.workspace }}/dev/geode-*-android32.zip geode-lite-repo-*/VERSION | xargs)
           if [ -z "$VERSION" ]; then
             echo "Error: VERSION file not found in the ZIP."
             exit 1
