@@ -1,5 +1,5 @@
 #include "../ui/mods/ModsLayer.hpp"
-#include "litepopup/warning.hpp"
+#include "lite/warning.hpp"
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/Modify.hpp>
 #include <Geode/modify/IDManager.hpp>
