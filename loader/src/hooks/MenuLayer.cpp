@@ -75,9 +75,12 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
 
             bottomMenu->updateLayout();
             
-            auto popup = WarningPopup::create();
-            popup->m_scene = this;
-            popup->show();
+            bool hasGeodeLite_ed = GameManager::get()->getUGV("50");
+            if(!hasGeodeLite_ed) {
+                auto popup = WarningPopup::create();
+                popup->m_scene = this;
+                popup->show();
+            }
             
             this->fixSocialMenu();
 
