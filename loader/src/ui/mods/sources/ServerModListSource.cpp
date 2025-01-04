@@ -113,7 +113,8 @@ server::ModsQuery ServerModListSource::createDefaultQuery() const {
         };
 
         case ServerModListType::Lite: return server::ModsQuery {
-            .customurl = "https://api.geode-sdk.org/v1",
+            //.customurl = "https://api.geode-sdk.org/v1",
+            .customurl = "NotARealUrl",
         };
 
         case ServerModListType::Modtober24: return server::ModsQuery {

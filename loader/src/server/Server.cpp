@@ -380,15 +380,16 @@ Result<ServerModReplacement> ServerModReplacement::parse(matjson::Value const& r
     return root.ok(res);
 }
 std::string baseServerUrl = "https://api.geode-sdk.org/v1";
+std::string CurrentUrl = baseServerUrl;
 Result<ServerModUpdate> ServerModUpdate::parse(matjson::Value const& raw) {
     auto root = checkJson(raw, "ServerModUpdate");
 
     auto res = ServerModUpdate();
 
     root.needs("id").into(res.id);
-    if (!baseServerUrl.compare("https://api.geode-sdk.org/v1")) {
+    if (!CurrentUrl.compare("https://api.geode-sdk.org/v1")) {
         if (!res.id.empty()) {
-            res.id += baseServerUrl;
+            res.id += CurrentUrl;
         }
     }
     root.needs("version").into(res.version);
@@ -546,7 +547,7 @@ bool ServerModMetadata::hasUpdateForInstalledMod() const {
 }
 
 std::string server::getServerAPIBaseURL() {
-    return baseServerUrl;
+    return CurrentUrl;
 }
 
 template <class... Args>
@@ -594,10 +595,10 @@ ServerRequest<ServerModsList> server::getMods(ModsQuery const& query, bool useCa
         }
         req.param("platforms", plats);
     }
-    if (query.customurl != "") {
-        baseServerUrl = query.customurl;
+    if (!query.customurl.empty()) {
+        CurrentUrl = query.customurl;
     } else {
-        baseServerUrl = "https://api.geode-sdk.org/v1";
+        CurrentUrl = "https://api.geode-sdk.org/v1";
     };
 
     if (query.tags.size()) {
