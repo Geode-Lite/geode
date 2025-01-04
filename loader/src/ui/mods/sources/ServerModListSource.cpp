@@ -112,6 +112,10 @@ server::ModsQuery ServerModListSource::createDefaultQuery() const {
             .sorting = server::ModsSort::RecentlyPublished,
         };
 
+        case ServerModListType::Lite: return server::ModsQuery {
+            .tags = { "joke" },
+        };
+
         case ServerModListType::Modtober24: return server::ModsQuery {
             .tags = { "modtober24" },
         };
