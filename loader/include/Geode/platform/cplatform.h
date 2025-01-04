@@ -93,6 +93,7 @@
     #define GEODE_MOBILE(...) __VA_ARGS__
     #define GEODE_DESKTOP(...)
     #define GEODE_IS_ANDROID
+    #define GEODE_IS_LITE // because some things are different from normal gd, for example offsets
     #define GEODE_IS_MOBILE
     #define GEODE_CALL
     #define CC_TARGET_OS_ANDROID
