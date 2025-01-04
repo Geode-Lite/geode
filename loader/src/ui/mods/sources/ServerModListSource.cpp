@@ -95,26 +95,28 @@ InvalidateQueryAfter<server::ModsQuery> ServerModListSource::getQueryMut() {
 bool ServerModListSource::isDefaultQuery() const {
     return m_query == this->createDefaultQuery();
 }
-
 server::ModsQuery ServerModListSource::createDefaultQuery() const {
     switch (m_type) {
         case ServerModListType::Download: return server::ModsQuery {};
 
         case ServerModListType::Featured: return server::ModsQuery {
+            .customurl = "https://api.geode-sdk.org/v1",
             .featured = true,
         };
 
         case ServerModListType::Trending: return server::ModsQuery {
+            .customurl = "https://api.geode-sdk.org/v1",
             .sorting = server::ModsSort::RecentlyUpdated,
         };
 
         case ServerModListType::Recent: return server::ModsQuery {
+            .customurl = "https://api.geode-sdk.org/v1",
             .sorting = server::ModsSort::RecentlyPublished,
         };
 
         case ServerModListType::Lite: return server::ModsQuery {
-            //.customurl = "https://api.geode-sdk.org/v1",
-            .customurl = "NotARealUrl",
+            .customurl = "https://api.geode-sdk.org/v1",
+            //.customurl = "NotARealUrl",
         };
 
         case ServerModListType::Modtober24: return server::ModsQuery {

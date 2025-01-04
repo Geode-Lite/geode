@@ -644,7 +644,6 @@ ServerRequest<ServerModsList> server::getMods(ModsQuery const& query, bool useCa
 }
 
 ServerRequest<ServerModMetadata> server::getMod(std::string const& id, bool useCache) {
-    log::debug("the id loading up is {}",id);
     if (useCache) {
         return getCache<getMod>().get(id);
     }
