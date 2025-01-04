@@ -75,7 +75,7 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
 
             bottomMenu->updateLayout();
             
-            if (Mod::get()->getSavedValue<bool>("viewedPopup")){
+            if (!Mod::get()->getSavedValue<bool>("viewedPopup")){
                 auto popup = WarningPopup::create();
                 popup->m_scene = this;
                 popup->show();

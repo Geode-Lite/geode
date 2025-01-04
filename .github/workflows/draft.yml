@@ -74,7 +74,28 @@ jobs:
       - name: Debug Renamed Files
         run: ls -la .
 
-      # Create the draft release
+      # Fetch the latest changelog entries
+      - name: Fetch Latest Changelog Entries
+        id: changelog
+        run: |
+          # Fetch the CHANGELOG.md file
+          curl -s https://raw.githubusercontent.com/MuhXd/geode-lite-repo/main/CHANGELOG.md -o CHANGELOG.md
+
+          # Extract the latest changelog entries
+          LATEST_CHANGELOG=$(awk '/^## /{i++}i==2{exit}i==1' CHANGELOG.md)
+
+          # Check if changelog entries were found
+          if [ -z "$LATEST_CHANGELOG" ]; then
+            echo "Error: Failed to extract latest changelog entries."
+            exit 1
+          fi
+
+          # Output the changelog for use in subsequent steps
+          echo "changelog<<EOF" >> $GITHUB_ENV
+          echo "$LATEST_CHANGELOG" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      # Create the draft release with the latest changelog
       - name: Create Draft Release
         uses: softprops/action-gh-release@v1
         env:
@@ -85,10 +106,8 @@ jobs:
           body: |
             Geode development release for version ${{ steps.ref.outputs.version }}.
 
-            TODO:
-            - Mark if pre-release
-            - Add changelog
-            - Remove this placeholder text
+            ${{ env.changelog }}
+
           draft: true
           files: |
             ./geode-v${{ steps.ref.outputs.version }}-android32.zip
