@@ -11,6 +11,7 @@ jobs:
     name: Draft Release
     runs-on: ubuntu-latest
     steps:
+      # Download all assets from the nightly release
       - name: Download Development Release
         uses: robinraju/release-downloader@v1.9
         with:
@@ -20,43 +21,61 @@ jobs:
           zipBall: true
           out-file-path: 'dev'
 
-      - name: Debug ZIP Contents
-        run: unzip -l ${{ github.workspace }}/dev/geode-nightly.zip
+      # Debugging: List downloaded files
+      - name: Debug Downloaded Files
+        run: ls -la dev/
 
+      # Verify that all expected files are downloaded
+      - name: Verify Files
+        run: |
+          if [ ! -f dev/geode-*-android32.zip ]; then
+            echo "Error: Android 32-bit ZIP not found."
+            exit 1
+          fi
+          if [ ! -f dev/geode-*-android64.zip ]; then
+            echo "Error: Android 64-bit ZIP not found."
+            exit 1
+          fi
+          if [ ! -f dev/resources.zip ]; then
+            echo "Error: Resources ZIP not found."
+            exit 1
+          fi
+
+      # Extract VERSION from the Android 32-bit ZIP
       - name: Declare Version Variable
         id: ref
         shell: bash
         run: |
-          VERSION=$(unzip -p ${{ github.workspace }}/dev/geode-nightly.zip geode-sdk-geode-*/VERSION | xargs)
+          VERSION=$(unzip -p ${{ github.workspace }}/dev/geode-*-android32.zip geode-sdk-geode-*/VERSION | xargs)
           if [ -z "$VERSION" ]; then
-            echo "VERSION is empty. Ensure the VERSION file exists in the ZIP."
+            echo "Error: VERSION file not found in the ZIP."
             exit 1
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-          # Test if release already exists
+          # Check if a release with this version already exists
           set +e
           curl --fail "https://api.github.com/repos/MuhXd/geode-lite-repo/releases/tags/v$VERSION" --silent --output /dev/null
           RESULT=$?
           set -e
 
           if [ $RESULT -eq 0 ]; then
-            echo "Release $VERSION already exists! Not replacing it."
+            echo "Release v$VERSION already exists. Exiting."
             exit 1
           fi
 
-      - name: Debug Files Before Move
-        run: ls -la dev/
-
-      - name: Move Files
+      # Rename and move files to prepare for the release
+      - name: Move and Rename Files
         run: |
           mv dev/geode-*-android32.zip geode-v${{ steps.ref.outputs.version }}-android32.zip
           mv dev/geode-*-android64.zip geode-v${{ steps.ref.outputs.version }}-android64.zip
           mv dev/resources.zip resources.zip
 
-      - name: Debug Files After Move
+      # Debugging: List files after renaming
+      - name: Debug Renamed Files
         run: ls -la .
 
+      # Create the draft release
       - name: Create Draft Release
         uses: softprops/action-gh-release@v1
         env:
@@ -65,5 +84,14 @@ jobs:
           tag_name: v${{ steps.ref.outputs.version }}
           name: Geode v${{ steps.ref.outputs.version }}
           body: |
-            TODO before publishing:
-             - mark if
+            Geode development release for commit ${{ steps.ref.outputs.version }}.
+
+            TODO:
+            - Mark if pre-release
+            - Add changelog
+            - Remove this placeholder text
+          draft: true
+          files: |
+            ./geode-v${{ steps.ref.outputs.version }}-android32.zip
+            ./geode-v${{ steps.ref.outputs.version }}-android64.zip
+            ./resources.zip
