@@ -1,4 +1,5 @@
 #include "../ui/mods/ModsLayer.hpp"
+#include "litepopup/warning.hpp"
 #include <Geode/modify/MenuLayer.hpp>
 #include <Geode/modify/Modify.hpp>
 #include <Geode/modify/IDManager.hpp>
@@ -39,6 +40,7 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
     bool init() {
         if (!MenuLayer::init()) return false;
 
+        
         // make sure to add the string IDs for nodes (Geode has no manual
         // hook order support yet so gotta do this to ensure)
         NodeIDs::provideFor(this);
@@ -72,7 +74,11 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
             bottomMenu->setContentSize({ winSize.width / 2, bottomMenu->getScaledContentSize().height });
 
             bottomMenu->updateLayout();
-
+            
+            auto popup = WarningPopup::create();
+            popup->m_scene = this;
+            popup->show();
+            
             this->fixSocialMenu();
 
             //this code doesnt run have fun figuring out why idc enough
