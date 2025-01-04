@@ -26,7 +26,7 @@ jobs:
 
           # test if release already exists
           set +e
-          curl --fail "https://api.github.com/repos/geode-sdk/geode/releases/tags/v$VERSION" --silent --output /dev/null
+          curl --fail "https://api.github.com/repos/MuhXd/geode-lite-repo/releases/tags/v$VERSION" --silent --output /dev/null
           RESULT=$?
           set -e
           
