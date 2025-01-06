@@ -310,7 +310,7 @@ struct CustomMenuLayer : Modify<CustomMenuLayer, MenuLayer> {
             "Dismiss", "Open Github",
             [](auto, bool btn2) {
                 if (btn2) {
-                    web::openLinkInBrowser("https://github.com/MuhXd/geode-lite-repo/releases/latest");
+                    web::openLinkInBrowser("https://github.com/Geode-Lite/geode/releases/latest");
                     file::openFolder(dirs::getGeodeDir() / "update" / "resources");
                     FLAlertLayer::create(
                         "Info",

@@ -45,7 +45,7 @@ jobs:
       - name: Fetch VERSION from Main Branch
         id: ref
         run: |
-          VERSION=$(curl -s https://raw.githubusercontent.com/MuhXd/geode-lite-repo/main/VERSION | xargs)
+          VERSION=$(curl -s https://raw.githubusercontent.com/Geode-Lite/geode/main/VERSION | xargs)
           if [ -z "$VERSION" ]; then
             echo "Error: Failed to fetch VERSION from the repository."
             exit 1
@@ -54,7 +54,7 @@ jobs:
 
           # Check if a release with this version already exists
           set +e
-          curl --fail "https://api.github.com/repos/MuhXd/geode-lite-repo/releases/tags/v$VERSION" --silent --output /dev/null
+          curl --fail "https://api.github.com/repos/Geode-Lite/geode/releases/tags/v$VERSION" --silent --output /dev/null
           RESULT=$?
           set -e
 
@@ -79,7 +79,7 @@ jobs:
         id: changelog
         run: |
           # Fetch the CHANGELOG.md file
-          curl -s https://raw.githubusercontent.com/MuhXd/geode-lite-repo/main/CHANGELOG.md -o CHANGELOG.md
+          curl -s https://raw.githubusercontent.com/Geode-Lite/geode/main/CHANGELOG.md -o CHANGELOG.md
 
           # Extract the latest changelog entries
           LATEST_CHANGELOG=$(awk '/^## /{i++}i==2{exit}i==1' CHANGELOG.md)
